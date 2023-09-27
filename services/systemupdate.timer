@@ -3,10 +3,9 @@ Description=Apply updates on every month 28th fedora system boot
 After=network.target
 
 [Timer]
+Unit=systemupdate.service
 OnUnitActiveSec=1month
 Persistent=true
 
 [Install]
-WantedBy=default.target
-RequiredBy=network.target
-
+WantedBy=timers.target
