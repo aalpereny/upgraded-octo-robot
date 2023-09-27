@@ -6,14 +6,14 @@ dnf install doas which @critical-path-kde dolphin kde-gtk-config sddm-kcm steam 
 ufw allow 1714:1764/udp && ufw allow 1714:1764/tcp && ufw reload && \
 wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm && \
 touch /etc/polkit-1/rules.d/90-corectrl.rules && \
-echo 'polkit.addRule(function(action, subject) { \n
-    if ((action.id == "org.corectrl.helper.init" || \n
-         action.id == "org.corectrl.helperkiller.init") && \n
-        subject.local == true && \n
-        subject.active == true && \n
-        subject.isInGroup($USER)) { \n
-            return polkit.Result.YES; \n
-    } \n
+echo 'polkit.addRule(function(action, subject) {
+    if ((action.id == "org.corectrl.helper.init" ||
+         action.id == "org.corectrl.helperkiller.init") &&
+        subject.local == true &&
+        subject.active == true &&
+        subject.isInGroup($USER)) {
+            return polkit.Result.YES;
+    }
 });
 ' | tee -a /etc/polkit-1/rules.d/90-corectrl.rules && \
 grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt' && \
