@@ -14,7 +14,7 @@ chown -c root:root /etc/doas.conf || \
 chmod -c 0400 /etc/doas.conf || \
 doas -C /etc/doas.conf && echo 'config ok' || echo 'config error' ||\
 mv -v /usr/bin/sudo /usr/bin/sudo.bak || \
-ln -sv $(which doas) /usr/bin/sudo || \
+ln -sv /usr/bin/doas /usr/bin/sudo || \
 cp -v services/startupsecupdate.service /etc/systemd/system/ || \
 cp -v services/systemupdate.service /etc/systemd/system/ || \
 cp -v services/systemupdate.timer /etc/systemd/system/ || \
