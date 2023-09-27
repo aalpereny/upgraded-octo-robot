@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo sh -c "sudo dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo && \
+sudo sh -c "dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo && \
 dnf install doas @critical-path-kde kde-gtk-config sddm-kcm steam lutris librewolf discord alacritty kde-connect ufw kde-partitionmanager protontricks kate thunderbird mangohud gamemode goverlay wget && \
 wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm && \
 grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt' && \
