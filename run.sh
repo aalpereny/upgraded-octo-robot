@@ -2,7 +2,7 @@
 sudo sh -c "dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo && \
 dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && \
 dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
-dnf install doas @critical-path-kde kde-gtk-config sddm-kcm steam lutris librewolf discord alacritty kde-connect ufw kde-partitionmanager protontricks kate thunderbird mangohud gamemode goverlay wget && \
+dnf install doas which @critical-path-kde kde-gtk-config sddm-kcm steam lutris librewolf discord alacritty kde-connect ufw kde-partitionmanager protontricks kate thunderbird mangohud gamemode goverlay wget && \
 ufw allow 1714:1764/udp && ufw allow 1714:1764/tcp && ufw reload && \
 wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm && \
 grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt' && \
