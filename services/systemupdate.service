@@ -1,0 +1,15 @@
+[Unit]
+Description=Apply updates on every month 28th fedora system boot
+After=network.target
+
+[Timer]
+OnUnitActiveSec=1month
+
+[Service]
+ExecStart=/usr/bin/dnf update -y
+Type=simple
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target
+
