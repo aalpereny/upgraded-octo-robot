@@ -20,6 +20,5 @@ cp -v services/systemupdate.service /etc/systemd/system/ && \
 cp -v services/systemupdate.timer /etc/systemd/system/ && \
 systemctl enable startupsecupdate.service && \
 systemctl enable systemupdate.timer && \
-systemctl enable systemupdate.service && \
 systemctl set-default graphical.target && \
 systemctl enable sddm"
