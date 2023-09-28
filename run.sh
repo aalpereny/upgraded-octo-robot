@@ -1,10 +1,52 @@
 #!/bin/bash
-sudo sh -c "dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo && \
-dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm && \
-dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
-dnf install doas which @critical-path-kde dolphin kde-gtk-config sddm-kcm steam lutris librewolf discord alacritty kde-connect ufw kde-partitionmanager protontricks kate thunderbird mangohud gamemode goverlay wget sddm-breeze corectrl --exclude=konsole && \
-ufw allow 1714:1764/udp && ufw allow 1714:1764/tcp && ufw reload && \
-touch /etc/polkit-1/rules.d/90-corectrl.rules && \
+echo "#####################################"
+echo "### İnstalling and setup opendoas ###"
+echo "#####################################"
+sudo dnf install doas
+sudo rm -rfv /etc/doas.conf
+sudo touch /etc/doas.conf
+echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} $USER' | sudo tee -a /etc/doas.conf
+echo 'permit setenv { XAUTHORITY LANG LC_ALL } $USER' | sudo tee -a /etc/doas.conf
+sudo chown -c root:root /etc/doas.conf
+sudo chmod -c 0400 /etc/doas.conf
+doas -C /etc/doas.conf && echo 'config ok' && echo 'config error'
+read -p "Press any key to continue if doas configuration correct."
+mv -v /usr/bin/sudo /usr/bin/sudo.bak
+ln -sv /usr/bin/doas /usr/bin/sudo
+
+echo "######################################"
+echo "### Setting Up KDE Plasma and SDDM ###"
+echo "######################################"
+sudo dnf install @critical-path-kde dolphin kde-gtk-config sddm-kcm alacritty kde-connect kde-partitionmanager kate sddm-breeze thunderbird
+sudo systemctl set-default graphical.target
+
+echo "####################################"
+echo "#### İnstall KDE Connect and UFW ###"
+echo "####################################"
+sudo dnf install ufw kdeconnect
+sudo ufw allow 1714:1764/udp
+sudo ufw allow 1714:1764/tcp
+sudo ufw reload
+
+echo "############################"
+echo "### İnstalling Librewolf ###"
+echo "############################"
+sudo dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo
+sudo dnf install librewolf
+
+echo "##############################"
+echo "### İnstalling Gaming Env. ###"
+echo "##############################"
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install steam lutris discord mangohud gamemode goverlay protontricks 
+
+echo "#####################################"
+echo "### İnstalling and setup CoreCtrl ###"
+echo "#####################################"
+sudo dnf install corectrl
+sudo grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt'
+sudo touch /etc/polkit-1/rules.d/90-corectrl.rules
 echo 'polkit.addRule(function(action, subject) {
     if ((action.id == "org.corectrl.helper.init" ||
          action.id == "org.corectrl.helperkiller.init") &&
@@ -13,21 +55,14 @@ echo 'polkit.addRule(function(action, subject) {
         subject.isInGroup($USER)) {
             return polkit.Result.YES;
     }
-}); ' | tee -a /etc/polkit-1/rules.d/90-corectrl.rules && \
-grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt' && \
-rm -rfv /etc/doas.conf && \
-touch /etc/doas.conf && \
-echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} $USER' | tee -a /etc/doas.conf && \
-echo 'permit setenv { XAUTHORITY LANG LC_ALL } $USER' | tee -a /etc/doas.conf && \
-chown -c root:root /etc/doas.conf && \
-chmod -c 0400 /etc/doas.conf && \
-doas -C /etc/doas.conf && echo 'config ok' && echo 'config error' &&\
-mv -v /usr/bin/sudo /usr/bin/sudo.bak && \
-ln -sv /usr/bin/doas /usr/bin/sudo && \
-cp -v services/startupsecupdate.service /etc/systemd/system/ && \
-cp -v services/systemupdate.service /etc/systemd/system/ && \
-cp -v services/systemupdate.timer /etc/systemd/system/ && \
-systemctl enable startupsecupdate.service && \
-systemctl enable systemupdate.timer && \
-systemctl set-default graphical.target && \
-wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm"
+});
+' | sudo tee -a /etc/polkit-1/rules.d/90-corectrl.rules
+
+echo "#############################################"
+echo "### Copy and activate auto system updates ###"
+echo "#############################################"
+sudo cp -v services/startupsecupdate.service /etc/systemd/system/
+sudo cp -v services/systemupdate.service /etc/systemd/system/
+sudo cp -v services/systemupdate.timer /etc/systemd/system/
+sudo systemctl enable startupsecupdate.service
+sudo systemctl enable systemupdate.timer
