@@ -8,9 +8,9 @@ sudo touch /etc/doas.conf
 echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} $USER' | sudo tee -a /etc/doas.conf
 echo 'permit setenv { XAUTHORITY LANG LC_ALL } $USER' | sudo tee -a /etc/doas.conf
 doas -C /etc/doas.conf && echo 'config ok' && echo 'config error'
+read -p "Press any key to continue if doas configuration correct."
 sudo chown -c root:root /etc/doas.conf
 sudo chmod -c 0400 /etc/doas.conf
-read -p "Press any key to continue if doas configuration correct."
 mv -v /usr/bin/sudo /usr/bin/sudo.bak
 ln -sv /usr/bin/doas /usr/bin/sudo
 
