@@ -11,8 +11,8 @@ doas -C /etc/doas.conf && echo "config ok" || echo "config error"
 read -p "Press any key to continue if doas configuration correct."
 sudo chown -c root:root /etc/doas.conf
 sudo chmod -c 0400 /etc/doas.conf
-mv -v /usr/bin/sudo /usr/bin/sudo.bak
-ln -sv /usr/bin/doas /usr/bin/sudo
+sudo mv -v /usr/bin/sudo /usr/bin/sudo.bak
+sudo ln -sv /usr/bin/doas /usr/bin/sudo
 read -p "Press any key to continue if configuration correct."
 
 echo "######################################"
