@@ -25,7 +25,7 @@ read -p "Press any key to continue if configuration correct."
 echo "####################################"
 echo "#### İnstall KDE Connect and UFW ###"
 echo "####################################"
-sudo dnf install ufw kdeconnect
+sudo dnf install ufw kde-connect
 sudo ufw allow 1714:1764/udp
 sudo ufw allow 1714:1764/tcp
 sudo ufw reload
