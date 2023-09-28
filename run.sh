@@ -13,8 +13,7 @@ echo 'polkit.addRule(function(action, subject) {
         subject.isInGroup($USER)) {
             return polkit.Result.YES;
     }
-});
-' | tee -a /etc/polkit-1/rules.d/90-corectrl.rules && \
+}); ' | tee -a /etc/polkit-1/rules.d/90-corectrl.rules && \
 grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt' && \
 rm -rfv /etc/doas.conf && \
 touch /etc/doas.conf && \
