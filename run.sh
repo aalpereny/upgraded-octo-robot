@@ -5,8 +5,8 @@ echo "#####################################"
 sudo dnf install doas
 sudo rm -rfv /etc/doas.conf
 sudo touch /etc/doas.conf
-sudo echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} $USER' > /etc/doas.conf
-sudo echo 'permit setenv { XAUTHORITY LANG LC_ALL } $USER' >> /etc/doas.conf
+sudo bash -c "echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} $(whoami)' >> /etc/doas.conf"
+sudo bash -c "echo 'permit setenv { XAUTHORITY LANG LC_ALL } $(whoami)' >> /etc/doas.conf"
 doas -C /etc/doas.conf && echo "config ok" || echo "config error" 
 read -p "Press any key to continue if doas configuration correct."
 sudo chown -c root:root /etc/doas.conf
