@@ -31,5 +31,4 @@ cp -v services/systemupdate.timer /etc/systemd/system/ && \
 systemctl enable startupsecupdate.service && \
 systemctl enable systemupdate.timer && \
 systemctl set-default graphical.target && \
-systemctl enable sddm && \
 wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm"
