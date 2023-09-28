@@ -4,7 +4,6 @@ dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$
 dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
 dnf install doas which @critical-path-kde dolphin kde-gtk-config sddm-kcm steam lutris librewolf discord alacritty kde-connect ufw kde-partitionmanager protontricks kate thunderbird mangohud gamemode goverlay wget sddm-breeze corectrl --exclude=konsole && \
 ufw allow 1714:1764/udp && ufw allow 1714:1764/tcp && ufw reload && \
-wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm && \
 touch /etc/polkit-1/rules.d/90-corectrl.rules && \
 echo 'polkit.addRule(function(action, subject) {
     if ((action.id == "org.corectrl.helper.init" ||
@@ -32,4 +31,5 @@ cp -v services/systemupdate.timer /etc/systemd/system/ && \
 systemctl enable startupsecupdate.service && \
 systemctl enable systemupdate.timer && \
 systemctl set-default graphical.target && \
-systemctl enable sddm"
+systemctl enable sddm && \
+wget https://github.com/Umio-Yasuno/amdgpu_top/releases/download/v0.2.0/amdgpu_top-0.2.0-1.x86_64.rpm && dnf install amdgpu_top-0.2.0-1.x86_64.rpm"
