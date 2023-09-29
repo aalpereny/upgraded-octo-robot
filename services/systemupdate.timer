@@ -1,5 +1,5 @@
 [Unit]
-Description=Apply updates on every month 28th fedora system boot
+Description=Apply updates on every month fedora system boot
 After=network.target
 
 [Timer]
