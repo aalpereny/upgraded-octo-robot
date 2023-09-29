@@ -22,14 +22,12 @@ sudo dnf install @critical-path-kde dolphin kde-gtk-config sddm-kcm alacritty kd
 sudo systemctl set-default graphical.target
 read -p "Press any key to continue if configuration correct."
 
-echo "####################################"
-echo "#### İnstall KDE Connect and UFW ###"
-echo "####################################"
-sudo dnf install ufw kde-connect
-sudo ufw enable
-sudo ufw allow 1714:1764/udp
-sudo ufw allow 1714:1764/tcp
-sudo ufw reload
+echo "##############################################"
+echo "#### İnstall and configure Plasma Firewall ###"
+echo "##############################################"
+sudo dnf install plasma-firewall
+sudo firewall-cmd --permanent --zone=public --add-service=kdeconnect
+sudo firewall-cmd --reload
 read -p "Press any key to continue if configuration correct."
 
 echo "############################"
