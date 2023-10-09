@@ -49,7 +49,7 @@ echo "#####################################"
 echo "### İnstalling and setup CoreCtrl ###"
 echo "#####################################"
 sudo dnf install corectrl
-sudo grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff amd_iommu=on iommu=pt'
+sudo grubby --update-kernel=ALL --args='amdgpu.ppfeaturemask=0xffffffff'
 sudo touch /etc/polkit-1/rules.d/90-corectrl.rules
 echo 'polkit.addRule(function(action, subject) {
     if ((action.id == "org.corectrl.helper.init" ||
