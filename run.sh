@@ -63,12 +63,12 @@ echo 'polkit.addRule(function(action, subject) {
 ' | sudo tee -a /etc/polkit-1/rules.d/90-corectrl.rules
 read -p "Press any key to continue if configuration correct."
 
-echo "#############################################"
-echo "### Copy and activate auto system updates ###"
-echo "#############################################"
-sudo cp -v services/startupsecupdate.service /etc/systemd/system/
-sudo cp -v services/systemupdate.service /etc/systemd/system/
-sudo cp -v services/systemupdate.timer /etc/systemd/system/
-sudo systemctl enable startupsecupdate.service
-sudo systemctl enable systemupdate.timer
-read -p "Press any key to continue if configuration correct."
+# echo "#############################################"
+# echo "### Copy and activate auto system updates ###"
+# echo "#############################################"
+# sudo cp -v services/startupsecupdate.service /etc/systemd/system/
+# sudo cp -v services/systemupdate.service /etc/systemd/system/
+# sudo cp -v services/systemupdate.timer /etc/systemd/system/
+# sudo systemctl enable startupsecupdate.service
+# sudo systemctl enable systemupdate.timer
+# read -p "Press any key to continue if configuration correct."
